@@ -1,5 +1,6 @@
 import http from 'http';
 import { Server } from 'socket.io';
+import { emitFeed } from '../services/webSocketService.mjs';
 
 export function createSocketServer(app) {
     const server = http.createServer(app);
@@ -23,7 +24,7 @@ export function createSocketServer(app) {
     });
 
 
-    io.on('connection', (socket) => {
+    io.on('connection', async(socket) => {
         console.log('A user connected', {
             headers: socket.handshake.headers,
             address: socket.handshake.address,
@@ -31,13 +32,20 @@ export function createSocketServer(app) {
             protocol: socket.handshake.protocol
         });
 
+        await emitFeed(socket);
+
+        const interval = setInterval(async () => {
+            await emitFeed(socket);
+        }, 60000);
 
         socket.on('disconnect', () => {
             console.log('User disconnected');
+            clearInterval(interval);
         });
 
         socket.on('error', (error) => {
             console.error('Socket error:', error);
+            clearInterval(interval);
         });
     });
 

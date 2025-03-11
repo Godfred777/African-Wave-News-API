@@ -38,11 +38,11 @@ export async function parseRSSFeeds() {
             const feed = await fetchWithRetry(url);
             feed.items.forEach(async (item) => {
                 const article = {
-                    title: item.title,
-                    link: item.link,
-                    pubDate: item.pubDate,
-                    content: item.content,
-                    language: item.language
+                    title: item.title || '',
+                    link: item.link || '',
+                    pubDate: item.pubDate || new Date().toISOString(),
+                    content: item.content || '',
+                    language: item.language || 'en'
                 };
                 const id = await createArticle(article);
                 articles.push({ ...article, id });
