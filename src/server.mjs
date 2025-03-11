@@ -2,7 +2,7 @@ import express from 'express';
 import BodyParser from 'body-parser';
 
 // Create a new express application
-export function createServer(config) {
+export function createApp(config) {
 
     const app = express();
 

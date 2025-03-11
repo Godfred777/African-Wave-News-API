@@ -1,6 +1,7 @@
-import { createServer } from "./server.mjs";
+import { createApp } from "./server.mjs";
 import dotenv from "dotenv";
 import {articleRouter} from "./api/routes/articleRoutes.mjs";
+import { createSocketServer } from "./sockets/socketServer.mjs";
 
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || "localhost"
@@ -14,10 +15,17 @@ const config = {
     env
 };
 
-const app = createServer(config);
+const app = createApp(config);
+const {server, io} = createSocketServer(app);
+
 app.use(articleRouter);
 
 
-app.listen(port, host, () => {
-    console.log(`Server running on http://${host}:${port}`);
+server.listen(port, host, () => {
+    console.log(
+        `HTTP/WebSocket server listening on:
+        -HTTP: http://${host}:${port}
+        -WebSocket: ws://${host}:${port}`
+
+    );
 });

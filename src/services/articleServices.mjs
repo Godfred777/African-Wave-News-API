@@ -8,7 +8,7 @@ export async function createArticle(article) {
             link: article.link,
             pubDate: article.pubDate,
             content: article.content,
-            creator: article.creator,
+            language: article.language,
             id: docRef.id
         });
         return docRef.id;
