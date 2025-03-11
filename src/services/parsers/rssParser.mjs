@@ -26,7 +26,7 @@ async function fetchWithRetry(url, retries = 3) {
             return await parser.parseURL(url);
         } catch (error) {
             if (i === retries - 1) throw error;
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 1000*(i+1)));
         }
     }
 }

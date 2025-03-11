@@ -1,0 +1,14 @@
+{
+  "welcome": "Willkommen bei unserem Nachrichtendienst!",
+  "article": {
+    "title": "Titel",
+    "link": "Link",
+    "pubDate": "Erscheinungsdatum",
+    "content": "Inhalt",
+    "language": "Sprache",
+    "source": "Quelle"
+  },
+  "error": {
+    "internalServerError": "Interner Serverfehler"
+  }
+}

@@ -2,6 +2,9 @@ import { createApp } from "./server.mjs";
 import dotenv from "dotenv";
 import {articleRouter} from "./api/routes/articleRoutes.mjs";
 import { createSocketServer } from "./sockets/socketServer.mjs";
+import i18n from "../src/config/i18n.mjs";
+import * as middleware from "i18next-http-middleware";
+
 
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || "localhost"
@@ -19,6 +22,7 @@ const app = createApp(config);
 const {server, io} = createSocketServer(app);
 
 app.use(articleRouter);
+app.use(middleware.handle(i18n));
 
 
 server.listen(port, host, () => {

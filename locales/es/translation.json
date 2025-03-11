@@ -1,0 +1,14 @@
+{
+  "welcome": "¡Bienvenido a nuestro servicio de noticias!",
+  "article": {
+    "title": "Título",
+    "link": "Enlace",
+    "pubDate": "Fecha de publicación",
+    "content": "Contenido",
+    "language": "Idioma",
+    "source": "Fuente"
+  },
+  "error": {
+    "internalServerError": "Error interno del servidor"
+  }
+}
