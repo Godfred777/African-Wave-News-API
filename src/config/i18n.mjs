@@ -13,9 +13,12 @@ i18next
     fallbackLng: "en",
     supportedLngs: ["en", "fr", "de", "es"],
     saveMissing: true,
+    ns: ['common', 'articles', 'errors'],
+    defaultNS: ['common'],
     detection: {
       order: ["header", "querystring"],
       caches: ["cookie"],
+      lookupHeader:'accept-language',
     },
     interpolation: {
       escapeValue: false,
