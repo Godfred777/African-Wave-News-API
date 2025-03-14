@@ -1,4 +1,7 @@
 import { db } from "../config/firebaseConfig.mjs";
+import { translateArticle } from "../utils/translation.mjs";
+import { parseRSSFeeds } from "../services/parsers/rssParser.mjs";
+
 
 export async function createArticle(article) {
     try {
@@ -10,7 +13,6 @@ export async function createArticle(article) {
             content: article.content,
             language: article.language,
             source: article.source,
-            translations: article.translations,
             id: docRef.id
         });
         return docRef.id;
@@ -32,4 +34,15 @@ export async function getAllArticles() {
         console.error(error);
         return null;
     }
+}
+
+export async function translatedFeed(targetLanguage) {
+    try {
+        const articles = await parseRSSFeeds();
+        const translatedArticles = await translateArticle(articles, targetLanguage);
+        return translatedArticles;
+    } catch (error) {
+        console.error(error);
+    }
+
 }

@@ -1,6 +1,11 @@
 import http from 'http';
 import { Server } from 'socket.io';
-import { emitFeed } from '../services/webSocketService.mjs';
+import {
+  emitFeed,
+  emitTranslatedFeedInFrench,
+  emitTranslatedFeedInGerman,
+  emitTranslatedFeedInSpanish,
+} from "../services/webSocketService.mjs";
 
 export function createSocketServer(app) {
     const server = http.createServer(app);
@@ -33,9 +38,15 @@ export function createSocketServer(app) {
         });
 
         await emitFeed(socket);
+        await emitTranslatedFeedInFrench(socket);
+        await emitTranslatedFeedInGerman(socket);
+        await emitTranslatedFeedInSpanish(socket);
 
         const interval = setInterval(async () => {
             await emitFeed(socket);
+            await emitTranslatedFeedInFrench(socket);
+            await emitTranslatedFeedInGerman(socket);
+            await emitTranslatedFeedInSpanish(socket);
         }, 60000);
 
         socket.on('disconnect', () => {
