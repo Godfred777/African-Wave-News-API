@@ -12,7 +12,6 @@ export async function createArticle(article) {
             pubDate: article.pubDate,
             content: article.content,
             language: article.language,
-            source: article.source,
             id: docRef.id
         });
         return docRef.id;
