@@ -1,5 +1,5 @@
 import { franc } from 'franc-min';
-import i18next from '../config/i18n.mjs';
+import i18next from '../../config/i18n.mjs';
 
 export async function translateArticle(article, targetLanguage = 'en') {
     try {
@@ -32,11 +32,11 @@ export async function translateArticle(article, targetLanguage = 'en') {
 
         const translatedArticle = {
             ...article,
-            title: article.title ? await i18next.t(article.title, {
+            title: article.title ? i18next.t(article.title, {
                 lng: targetLanguage,
                 defaultValue: article.title
             }) : '',
-            content: article.content ? await i18next.t(article.content, {
+            content: article.content ? i18next.t(article.content, {
                 lng: targetLanguage,
                 defaultValue: article.content
             }) : '',

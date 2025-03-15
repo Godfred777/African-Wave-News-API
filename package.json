@@ -39,6 +39,7 @@
     "winston": "^3.17.0"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
     "firebase-admin": "^13.2.0"
   }
 }

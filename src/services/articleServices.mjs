@@ -1,5 +1,5 @@
 import { db } from "../config/firebaseConfig.mjs";
-import { translateArticle } from "../utils/translation.mjs";
+import { translateArticle } from "../utils/translators/translation.mjs";
 import { parseRSSFeeds } from "../services/parsers/rssParser.mjs";
 
 
