@@ -16,12 +16,24 @@ const generationConfig = {
     responseMimeType: "text/plain",
 };
 
-export async function translateContent(inputText, targetLanguage) {
+// src/utils/translators/ai-translator.mjs
+export async function translateContent(text, targetLanguage) {
     try {
-        const result = await model.generateContent({generationConfig, inputText:inputText, targetLanguage:targetLanguage});
+        if (!text || typeof text !== 'string') {
+            console.warn('Invalid text input for translation:', text);
+            return text;
+        }
+
+        // Format request as array of messages
+        const request = [{
+            role: 'user',
+            content: `Translate the following text to ${targetLanguage}:\n${text}`
+        }];
+
+        const result = await model.generateContent(request);
         return result.response.text();
     } catch (error) {
         console.error('Translation error:', error);
-        throw error;
+        return text; // Return original text if translation fails
     }
 }

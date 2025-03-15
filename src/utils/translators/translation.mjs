@@ -33,8 +33,8 @@ export async function translateArticle(article, targetLanguage = 'en') {
 
         const translatedArticle = {
             ...article,
-            title: article.title ? await translateContent(article.title, targetLanguage) : '',
-            content: article.content ? await translateContent(article.content, targetLanguage) : '',
+            title: await translateContent(article.title, targetLanguage),
+            content: await translateContent(article.content, targetLanguage),
             language: targetLanguage
         };
 

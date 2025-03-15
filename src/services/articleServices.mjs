@@ -38,7 +38,11 @@ export async function getAllArticles() {
 export async function translatedFeed(targetLanguage) {
     try {
         const articles = await parseRSSFeeds();
-        const translatedArticles = await translateArticle(articles, targetLanguage);
+        const translatedArticles = [];
+        for (const article of articles) {
+            const translatedArticle = await translateArticle(article, targetLanguage);
+            translatedArticles.push(translatedArticle);
+        }
         return translatedArticles;
     } catch (error) {
         console.error(error);
