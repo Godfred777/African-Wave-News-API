@@ -1,6 +1,6 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const apiKey = process.env.GEMINI_API_KEY;
+const apiKey = process.env.GEMINI_API_KEY || "AIzaSyAvn_ycK0i1iAB_Aw1j6KAUZhpw4LIXz2w";
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
@@ -16,7 +16,7 @@ const generationConfig = {
     responseMimeType: "text/plain",
 };
 
-// src/utils/translators/ai-translator.mjs
+
 export async function translateContent(text, targetLanguage) {
     try {
         if (!text || typeof text !== 'string') {
@@ -24,13 +24,15 @@ export async function translateContent(text, targetLanguage) {
             return text;
         }
 
-        // Format request as array of messages
-        const request = [{
-            role: 'user',
-            content: `Translate the following text to ${targetLanguage}:\n${text}`
+        // Format request according to Gemini API specs
+        const parts = [{
+            text: `Translate the following text to ${targetLanguage}:\n${text}`
         }];
 
-        const result = await model.generateContent(request);
+        const result = await model.generateContent({
+            contents: [{ parts }]
+        });
+
         return result.response.text();
     } catch (error) {
         console.error('Translation error:', error);
