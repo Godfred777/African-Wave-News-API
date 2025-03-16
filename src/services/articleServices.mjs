@@ -3,7 +3,7 @@ import { translateArticle } from "../utils/translators/translation.mjs";
 import { parseRSSFeeds } from "../services/parsers/rssParser.mjs";
 
 
-const DEFAULT_LIMIT = 5;
+const DEFAULT_LIMIT = 20;
 
 export async function createArticle(article) {
     try {
