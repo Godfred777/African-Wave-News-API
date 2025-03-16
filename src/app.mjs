@@ -24,7 +24,6 @@ const {server, io} = createSocketServer(app);
 app.use(articleRouter);
 app.use(middleware.handle(i18n));
 
-
 server.listen(port, host, () => {
     console.log(
         `HTTP/WebSocket server listening on:

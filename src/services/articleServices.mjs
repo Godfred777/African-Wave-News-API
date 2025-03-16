@@ -3,6 +3,8 @@ import { translateArticle } from "../utils/translators/translation.mjs";
 import { parseRSSFeeds } from "../services/parsers/rssParser.mjs";
 
 
+const DEFAULT_LIMIT = 5;
+
 export async function createArticle(article) {
     try {
         const docRef = await db.collection('articles').add(article);
@@ -21,9 +23,9 @@ export async function createArticle(article) {
     }
 }
 
-export async function getAllArticles() {
+export async function getAllArticles(limit = DEFAULT_LIMIT) {
     try {
-        const snapshot = await db.collection('articles').get();
+        const snapshot = await db.collection('articles').limit(limit).get();
         const articles = [];
         snapshot.forEach((doc) => {
             articles.push(doc.data());
@@ -35,11 +37,11 @@ export async function getAllArticles() {
     }
 }
 
-export async function translatedFeed(targetLanguage) {
+export async function translatedFeed(targetLanguage, limit = DEFAULT_LIMIT) {
     try {
         const articles = await parseRSSFeeds();
         const translatedArticles = [];
-        for (const article of articles) {
+        for (const article of articles.slice(0, limit)) {
             const translatedArticle = await translateArticle(article, targetLanguage);
             translatedArticles.push(translatedArticle);
         }
@@ -48,4 +50,26 @@ export async function translatedFeed(targetLanguage) {
         console.error(error);
     }
 
+}
+
+export async function tranlateArticleInFrench(limit = DEFAULT_LIMIT) {
+    try {
+        const snapshot = await db.collection('articles').limit(limit).get();
+        const articles = [];
+        const promises = [];
+        
+        snapshot.forEach((doc) => {
+            if (doc.data().language === 'fr') {
+                articles.push(doc.data());
+            } else {
+                promises.push(translateArticle(doc.data(), 'fr'));
+            }
+        });
+        
+        const translatedArticles = await Promise.all(promises);
+        return [...articles, ...translatedArticles];
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
 }
