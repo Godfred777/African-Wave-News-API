@@ -38,15 +38,15 @@ export function createSocketServer(app) {
         });
 
         await emitFeed(socket);
-        await emitTranslatedFeedInFrench(socket);
-        await emitTranslatedFeedInGerman(socket);
-        await emitTranslatedFeedInSpanish(socket);
+       //await emitTranslatedFeedInFrench(socket);
+        //await emitTranslatedFeedInGerman(socket);
+        //await emitTranslatedFeedInSpanish(socket);
 
         const interval = setInterval(async () => {
-            await emitFeed(socket);
-            await emitTranslatedFeedInFrench(socket);
-            await emitTranslatedFeedInGerman(socket);
-            await emitTranslatedFeedInSpanish(socket);
+           // await emitFeed(socket);
+           // await emitTranslatedFeedInFrench(socket);
+           // await emitTranslatedFeedInGerman(socket);
+            //await emitTranslatedFeedInSpanish(socket);
         }, 60000);
 
         socket.on('disconnect', () => {
