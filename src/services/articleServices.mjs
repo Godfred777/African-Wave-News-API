@@ -13,7 +13,7 @@ export async function createArticle(article) {
             content: article.content,
             language: article.language,
             id: docRef.id
-        });
+        }, { merge: true });
         return docRef.id;
     } catch (error) {
         console.error(error);
