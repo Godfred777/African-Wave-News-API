@@ -1,5 +1,21 @@
 import { parseRSSFeeds } from "./parsers/rssParser.mjs";
-import { translatedFeed } from "./articleServices.mjs";
+import { queueTranslation } from "../utils/translationQueue.mjs";
+
+const DEFAULT_LIMIT = 10;
+
+export async function translatedFeed(targetLanguage, limit = DEFAULT_LIMIT) {
+    try {
+        const articles = await parseRSSFeeds();
+        const transtationPromises = articles
+        .slice(0, limit)
+        .map(article => queueTranslation(article, targetLanguage));
+        return await Promise.all(transtationPromises);
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+
+}
 
 export async function emitFeed(socket) {
     try {

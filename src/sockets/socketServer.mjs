@@ -37,17 +37,21 @@ export function createSocketServer(app) {
             protocol: socket.handshake.protocol
         });
 
-        await emitFeed(socket);
-       //await emitTranslatedFeedInFrench(socket);
-        //await emitTranslatedFeedInGerman(socket);
-        //await emitTranslatedFeedInSpanish(socket);
+        await Promise.all([
+            emitFeed(socket),
+            emitTranslatedFeedInFrench(socket),
+            emitTranslatedFeedInGerman(socket),
+            emitTranslatedFeedInSpanish(socket)
+        ]);
 
         const interval = setInterval(async () => {
-           // await emitFeed(socket);
-           // await emitTranslatedFeedInFrench(socket);
-           // await emitTranslatedFeedInGerman(socket);
-            //await emitTranslatedFeedInSpanish(socket);
-        }, 60000);
+            await Promise.all([
+            emitFeed(socket),
+            emitTranslatedFeedInFrench(socket),
+            emitTranslatedFeedInGerman(socket),
+            emitTranslatedFeedInSpanish(socket)
+            ]);
+        }, 120000); // Changed to 120000ms (2 minutes)
 
         socket.on('disconnect', () => {
             console.log('User disconnected');

@@ -1,6 +1,6 @@
 import { db } from "../config/firebaseConfig.mjs";
 import { queueTranslation } from "../utils/translationQueue.mjs";
-import { parseRSSFeeds } from "../services/parsers/rssParser.mjs";
+//import { parseRSSFeeds } from "../services/parsers/rssParser.mjs";
 
 
 const DEFAULT_LIMIT = 10;
@@ -35,20 +35,6 @@ export async function getAllArticles(limit = DEFAULT_LIMIT) {
         console.error(error);
         return null;
     }
-}
-
-export async function translatedFeed(targetLanguage, limit = DEFAULT_LIMIT) {
-    try {
-        const articles = await parseRSSFeeds();
-        const transtationPromises = articles
-        .slice(0, limit)
-        .map(article => queueTranslation(article, targetLanguage));
-        return await Promise.all(transtationPromises);
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-
 }
 
 export async function tranlateArticleInFrench(limit = DEFAULT_LIMIT) {
