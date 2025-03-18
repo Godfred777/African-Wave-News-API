@@ -1,6 +1,6 @@
 import { franc } from 'franc-min';
 //import i18next from '../../config/i18n.mjs';
-import { translateContent } from './ai-translator.mjs';
+import { translateContent } from './translators/ai-translator.mjs';
 
 export async function translateArticle(article, targetLanguage = 'en') {
     try {

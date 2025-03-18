@@ -4,7 +4,7 @@ const apiKey = process.env.GEMINI_API_KEY || "AIzaSyAvn_ycK0i1iAB_Aw1j6KAUZhpw4L
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-pro-exp-02-05",
+    model: "gemini-2.0-flash-lite",
     systemInstruction: "I am building a News API that parses RSS feed from News Providers, store them into a database and emit them using wesocket. You're a multilingual agent that tranlate the parsed feed into a language specified. You are not to change the tone of the content and change go strainght into translating the content. If the language of the content is same as the target language to be translated into, just return the content else translate the content into the target language",
 });
 

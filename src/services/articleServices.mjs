@@ -1,9 +1,9 @@
 import { db } from "../config/firebaseConfig.mjs";
-import { translateArticle } from "../utils/translators/translation.mjs";
+import { queueTranslation } from "../utils/translationQueue.mjs";
 import { parseRSSFeeds } from "../services/parsers/rssParser.mjs";
 
 
-const DEFAULT_LIMIT = 20;
+const DEFAULT_LIMIT = 10;
 
 export async function createArticle(article) {
     try {
@@ -40,14 +40,13 @@ export async function getAllArticles(limit = DEFAULT_LIMIT) {
 export async function translatedFeed(targetLanguage, limit = DEFAULT_LIMIT) {
     try {
         const articles = await parseRSSFeeds();
-        const translatedArticles = [];
-        for (const article of articles.slice(0, limit)) {
-            const translatedArticle = await translateArticle(article, targetLanguage);
-            translatedArticles.push(translatedArticle);
-        }
-        return translatedArticles;
+        const transtationPromises = articles
+        .slice(0, limit)
+        .map(article => queueTranslation(article, targetLanguage));
+        return await Promise.all(transtationPromises);
     } catch (error) {
         console.error(error);
+        return [];
     }
 
 }
@@ -62,7 +61,7 @@ export async function tranlateArticleInFrench(limit = DEFAULT_LIMIT) {
             if (doc.data().language === 'fr') {
                 articles.push(doc.data());
             } else {
-                promises.push(translateArticle(doc.data(), 'fr'));
+                promises.push(queueTranslation(doc.data(), 'fr'));
             }
         });
         
