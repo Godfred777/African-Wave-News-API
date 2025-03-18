@@ -72,3 +72,69 @@ export async function tranlateArticleInFrench(limit = DEFAULT_LIMIT) {
         return [];
     }
 }
+
+export async function tranlateArticleInGerman(limit = DEFAULT_LIMIT) {
+    try {
+        const snapshot = await db.collection('articles').limit(limit).get();
+        const articles = [];
+        const promises = [];
+        
+        snapshot.forEach((doc) => {
+            if (doc.data().language === 'de') {
+                articles.push(doc.data());
+            } else {
+                promises.push(queueTranslation(doc.data(), 'de'));
+            }
+        });
+        
+        const translatedArticles = await Promise.all(promises);
+        return [...articles, ...translatedArticles];
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
+export async function tranlateArticleInSpanish(limit = DEFAULT_LIMIT) {
+    try {
+        const snapshot = await db.collection('articles').limit(limit).get();
+        const articles = [];
+        const promises = [];
+        
+        snapshot.forEach((doc) => {
+            if (doc.data().language === 'es') {
+                articles.push(doc.data());
+            } else {
+                promises.push(queueTranslation(doc.data(), 'es'));
+            }
+        });
+        
+        const translatedArticles = await Promise.all(promises);
+        return [...articles, ...translatedArticles];
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
+export async function tranlateArticleInEnglish(limit = DEFAULT_LIMIT) {
+    try {
+        const snapshot = await db.collection('articles').limit(limit).get();
+        const articles = [];
+        const promises = [];
+        
+        snapshot.forEach((doc) => {
+            if (doc.data().language === 'en') {
+                articles.push(doc.data());
+            } else {
+                promises.push(queueTranslation(doc.data(), 'en'));
+            }
+        });
+        
+        const translatedArticles = await Promise.all(promises);
+        return [...articles, ...translatedArticles];
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
