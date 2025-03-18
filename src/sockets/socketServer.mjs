@@ -51,7 +51,7 @@ export function createSocketServer(app) {
             emitTranslatedFeedInGerman(socket),
             emitTranslatedFeedInSpanish(socket)
             ]);
-        }, 120000); // Changed to 120000ms (2 minutes)
+        }, 300000); // Changed to 120000ms (2 minutes)
 
         socket.on('disconnect', () => {
             console.log('User disconnected');
