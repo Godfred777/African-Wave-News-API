@@ -41,6 +41,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
     "firebase-admin": "^13.2.0",
+    "node-cron": "^3.0.3",
     "p-queue": "^8.1.0"
   }
 }

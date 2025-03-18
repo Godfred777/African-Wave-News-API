@@ -4,6 +4,7 @@ import {articleRouter} from "./api/routes/articleRoutes.mjs";
 import { createSocketServer } from "./sockets/socketServer.mjs";
 import i18n from "../src/config/i18n.mjs";
 import * as middleware from "i18next-http-middleware";
+import { startFeedScheduler } from "./services/scheduler.mjs";
 
 
 const port = process.env.PORT || 3000;
@@ -29,6 +30,6 @@ server.listen(port, host, () => {
         `HTTP/WebSocket server listening on:
         -HTTP: http://${host}:${port}
         -WebSocket: ws://${host}:${port}`
-
     );
+    startFeedScheduler();
 });
