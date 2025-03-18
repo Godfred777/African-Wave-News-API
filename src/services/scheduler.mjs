@@ -1,5 +1,5 @@
-import { parseRSSFeeds } from '../parsers/rssParser.mjs';
-import { feedCache } from '../cache/feedCache.mjs';
+import { parseRSSFeeds } from './parsers/rssParser.mjs';
+import { feedCache } from './feedCache.mjs';
 import cron from 'node-cron';
 
 export function startFeedScheduler() {
