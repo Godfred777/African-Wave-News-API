@@ -18,52 +18,37 @@ const generationConfig = {
 
 const RATE_LIMIT = {
     MAX_RETRIES: 3,
-    DELAY_MS: 1000,
-    BACKOFF_FACTOR:2
+    INITIAL_DELAY: 1000,
+    MAX_DELAY: 60000,
+    BACKOFF_FACTOR: 2
 };
 
-async function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms))
-}
-
 export async function translateContent(text, targetLanguage) {
-    let retries = 0
+    let delay = RATE_LIMIT.INITIAL_DELAY;
+    
+    for (let attempt = 1; attempt <= RATE_LIMIT.MAX_RETRIES; attempt++) {
+        try {
+            const parts = [{
+                text: `Translate the following text to ${targetLanguage}:\n${text}`
+            }];
 
+            const result = await model.generateContent({
+                contents: [{ parts }],
+                generationConfig
+            });
 
-   while (retries < RATE_LIMIT.MAX_RETRIES) {
-     try {
-         if (!text || typeof text !== 'string') {
-             console.warn('Invalid text input for translation:', text);
-             return text;
-         }
- 
-         // Format request according to Gemini API specs
-         const parts = [{
-             text: `Translate the following text to ${targetLanguage}:\n${text}`
-         }];
- 
-         const result = await model.generateContent({
-             contents: [{ parts }],
-             generationConfig
-         });
- 
-         return result.response.text();
-     } catch (error) {
-        retries++;
-        if (error.message.includes('429') || error.message.includes('quota')) {
-            console.warn(`Rate limit hit, attempt ${retries}/${RATE_LIMIT.MAX_RETRIES}`);
-            if (retries < RATE_LIMIT.MAX_RETRIES) {
-                // Exponential backoff
-                const waitTime = RATE_LIMIT.DELAY_MS * Math.pow(RATE_LIMIT.BACKOFF_FACTOR, retries);
-                await delay(waitTime);
-                continue;
+            return result.response.text();
+        } catch (error) {
+            if (error.status === 429) {
+                console.log(`Rate limit hit, attempt ${attempt}/${RATE_LIMIT.MAX_RETRIES}`);
+                if (attempt === RATE_LIMIT.MAX_RETRIES) {
+                    throw error;
                 }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay = Math.min(delay * RATE_LIMIT.BACKOFF_FACTOR, RATE_LIMIT.MAX_DELAY);
+                continue;
+            }
+            throw error;
         }
-        console.error('Translation error:', error);
-        return text; // Return original text if translation fails
-     }
-   }
-   return text; // Return original text if max retries reached
-
-
+    }
 }

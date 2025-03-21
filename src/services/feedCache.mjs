@@ -14,7 +14,10 @@ class FeedCache {
         this.lastUpdated = new Date();
     }
 
-    updateTranslation(language, articles) {
+    updateTranslations(language, articles) {
+        if (!this.translations[language]) {
+            this.translations[language] = [];
+        }
         this.translations[language] = articles;
     }
 
