@@ -1,5 +1,5 @@
-import { franc } from 'franc-min';
 import { translate } from './translators/ai-translator.mjs';
+import { detectLanguage } from './languageDetection.mjs'; 
 
 export async function translateArticle(article, targetLanguage = 'en') {
     try {
@@ -11,25 +11,15 @@ export async function translateArticle(article, targetLanguage = 'en') {
             return article;
         }
 
-        // Detect language only if we have minimum content length
-        const sourceLanguage = textToAnalyze.length >= 10 ? 
-            franc(textToAnalyze) : article.language || 'en';
-
-        // Map franc language codes to i18next codes
-        const languageMap = {
-            'eng': 'en',
-            'fra': 'fr',
-            'deu': 'de',
-            'spa': 'es'
-        };
-
-        const mappedSourceLang = languageMap[sourceLanguage] || sourceLanguage;
+        // Use detectLanguage function to determine source language
+        const sourceLanguage = await detectLanguage(textToAnalyze);
 
         // Skip translation if already in target language
-        if (mappedSourceLang === targetLanguage) {
+        if (sourceLanguage === targetLanguage) {
             return { ...article, language: targetLanguage };
         }
 
+        // Translate article content and title
         const translatedArticle = {
             ...article,
             title: await translate(article.title, targetLanguage),

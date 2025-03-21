@@ -1,7 +1,7 @@
 import Parser from "rss-parser";
 import { createArticle } from "../articleServices.mjs";
 import https from "https";
-
+import { detectLanguage } from "../../utils/languageDetection.mjs";
 
 
 const feedUrls = [
@@ -25,7 +25,7 @@ const parser = new Parser({
         'Pragma': 'no-cache'
     },
     customFields: {
-        item: ['content', 'contentSnippet']
+        item: ['content', 'contentSnippet', 'language']
     },
     requestOptions: {
         agent: new https.Agent({
@@ -57,12 +57,15 @@ export async function parseRSSFeeds() {
             try {
                 const feed = await fetchWithRetry(url);
                 for (const item of feed.items) {
+
+                    const language = await detectLanguage(item.content || item.contentSnippet || '');
+
                     const article = {
                         title: item.title || '',
                         link: item.link || '',
                         pubDate: item.pubDate || new Date().toISOString(),
                         content: item.content || item.contentSnippet || '',
-                        language: item.language || 'en'
+                        language: item.language || language || 'en'
                     };
                     const id = await createArticle(article);
                     articles.push({ ...article, id });
