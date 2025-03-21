@@ -16,13 +16,26 @@ queue.on('error', error => {
     console.error('Queue error:', error);
 });
 
+const COOLDOWN_PERIOD = 60000; // 1 minute
+let lastRateLimitHit = 0;
+
 export async function queueTranslation(article, targetLanguage) {
     return queue.add(async () => {
         try {
+            if (Date.now() - lastRateLimitHit < COOLDOWN_PERIOD) {
+                console.warn('Rate limit hit. Waiting for cooldown...');
+                return null;
+            }
+
             return await translateArticle(article, targetLanguage);
         } catch (error) {
-            console.error(`Translation failed for article: ${article.title}`, error);
-            return article;
+            if (error.status === 429) {
+                console.warn('Rate limit hit. Waiting for cooldown...');
+                lastRateLimitHit = Date.now();
+                return null;
+            }
+            console.error('Translation error:', error);
+            return null;
         }
     });
 }

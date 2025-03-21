@@ -16,7 +16,6 @@ export function startFeedScheduler() {
 
 const DEFAULT_LIMIT = 10;
 
-// src/services/scheduler.mjs
 async function updateFeeds() {
     try {
         const articles = await parseRSSFeeds();
@@ -25,12 +24,18 @@ async function updateFeeds() {
         const languages = ['fr', 'de', 'es'];
         for (const lang of languages) {
             const translations = [];
-            for (const article of articles.slice(0, DEFAULT_LIMIT)) {
-                try {
-                    const translation = await queueTranslation(article, lang);
-                    if (translation) translations.push(translation);
-                } catch (error) {
-                    console.error(`Translation failed for language ${lang}:`, error.message);
+            // Process in smaller batches
+            const batchSize = 3;
+            for (let i = 0; i < Math.min(articles.length, DEFAULT_LIMIT); i += batchSize) {
+                const batch = articles.slice(i, i + batchSize);
+                const batchTranslations = await Promise.all(
+                    batch.map(article => queueTranslation(article, lang))
+                );
+                translations.push(...batchTranslations.filter(t => t !== null));
+                
+                // Add delay between batches
+                if (i + batchSize < Math.min(articles.length, DEFAULT_LIMIT)) {
+                    await new Promise(resolve => setTimeout(resolve, 5000));
                 }
             }
             feedCache.updateTranslations(lang, translations);
