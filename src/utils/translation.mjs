@@ -1,6 +1,5 @@
 import { franc } from 'franc-min';
-//import i18next from '../../config/i18n.mjs';
-import { translateContent } from './translators/ai-translator.mjs';
+import { translate } from './translators/ai-translator.mjs';
 
 export async function translateArticle(article, targetLanguage = 'en') {
     try {
@@ -33,8 +32,8 @@ export async function translateArticle(article, targetLanguage = 'en') {
 
         const translatedArticle = {
             ...article,
-            title: await translateContent(article.title, targetLanguage),
-            content: await translateContent(article.content, targetLanguage),
+            title: await translate(article.title, targetLanguage),
+            content: await translate(article.content, targetLanguage),
             language: targetLanguage
         };
         return translatedArticle;

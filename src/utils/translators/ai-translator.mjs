@@ -23,7 +23,7 @@ const RATE_LIMIT = {
     BACKOFF_FACTOR: 2
 };
 
-export async function translateContent(text, targetLanguage) {
+export async function translate(text, targetLanguage) {
     let delay = RATE_LIMIT.INITIAL_DELAY;
     
     for (let attempt = 1; attempt <= RATE_LIMIT.MAX_RETRIES; attempt++) {
