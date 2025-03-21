@@ -1,12 +1,25 @@
 class FeedCache {
     constructor() {
         this.articles = [];
+        this.translations = {
+            fr: [],
+            de: [],
+            es: [],
+        };
         this.lastUpdated = null;
     }
 
     updateCache(articles) {
         this.articles = articles;
         this.lastUpdated = new Date();
+    }
+
+    updateTranslation(language, articles) {
+        this.translations[language] = articles;
+    }
+
+    getTranslation(language) {
+        return this.translations[language] || [];
     }
 
     getArticles() {
