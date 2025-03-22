@@ -28,7 +28,7 @@ export async function translateArticle(article, targetLanguage = 'en') {
         };
         return translatedArticle;
     } catch (error) {
-        console.error('Translation error:', error);
-        return article;
+        //console.error('Translation error:', error);
+        throw error;
     }
 }
