@@ -1,0 +1,29 @@
+{
+    "common": {
+        "welcome": "Bienvenue",
+        "navigation": {
+            "home": "Accueil",
+            "about": "À propos",
+            "contact": "Contact",
+            "news": "Actualités",
+            "services": "Services"
+        },
+        "buttons": {
+            "submit": "Envoyer",
+            "cancel": "Annuler",
+            "back": "Retour",
+            "next": "Suivant"
+        },
+        "messages": {
+            "loading": "Chargement...",
+            "error": "Une erreur s'est produite",
+            "success": "Opération réussie",
+            "required": "Ce champ est obligatoire"
+        },
+        "footer": {
+            "rights": "Tous droits réservés",
+            "privacy": "Politique de confidentialité",
+            "terms": "Conditions d'utilisation"
+        }
+    }
+}

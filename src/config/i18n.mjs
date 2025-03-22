@@ -22,6 +22,10 @@ i18next
     interpolation: {
       escapeValue: false,
     },
+    missingKeyHandler: (lng, ns, key) => {
+      console.log(`Missing translation: ${key} for language: ${lng}`);
+      return key;
+    },
   }
 );
 

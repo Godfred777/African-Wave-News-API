@@ -1,0 +1,28 @@
+{
+    "common": {
+        "navigation": {
+            "home": "Inicio",
+            "about": "Acerca de",
+            "contact": "Contacto",
+            "news": "Noticias",
+            "search": "Buscar"
+        },
+        "buttons": {
+            "submit": "Enviar",
+            "cancel": "Cancelar",
+            "read_more": "Leer más",
+            "back": "Volver"
+        },
+        "errors": {
+            "not_found": "Página no encontrada",
+            "general_error": "Algo salió mal",
+            "required_field": "Este campo es obligatorio"
+        },
+        "messages": {
+            "welcome": "Bienvenido",
+            "loading": "Cargando...",
+            "success": "Operación exitosa",
+            "failed": "La operación falló"
+        }
+    }
+}

@@ -5,8 +5,7 @@
     "link": "Link",
     "pubDate": "Erscheinungsdatum",
     "content": "Inhalt",
-    "language": "Sprache",
-    "source": "Quelle"
+    "language": "Sprache"
   },
   "error": {
     "internalServerError": "Interner Serverfehler"

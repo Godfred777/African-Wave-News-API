@@ -1,0 +1,30 @@
+{
+    "errors": {
+        "general": {
+            "unknown": "Se ha producido un error desconocido",
+            "notFound": "Recurso no encontrado",
+            "serverError": "Error del servidor",
+            "unauthorized": "No autorizado"
+        },
+        "form": {
+            "required": "Este campo es obligatorio",
+            "invalid": "Formato no válido",
+            "minLength": "Debe tener al menos {{count}} caracteres",
+            "maxLength": "Debe tener como máximo {{count}} caracteres",
+            "email": "Dirección de correo electrónico no válida"
+        },
+        "auth": {
+            "invalidCredentials": "Credenciales inválidas",
+            "sessionExpired": "La sesión ha expirado",
+            "passwordMismatch": "Las contraseñas no coinciden"
+        },
+        "network": {
+            "offline": "Sin conexión a Internet",
+            "timeout": "La solicitud ha excedido el tiempo de espera"
+        },
+        "validation": {
+            "required": "Campo requerido",
+            "invalidFormat": "Formato inválido"
+        }
+    }
+}

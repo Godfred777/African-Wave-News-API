@@ -1,4 +1,4 @@
-import { translate } from './translators/ai-translator.mjs';
+import { TranslationProvider } from './translationProvider.mjs';
 import { detectLanguage } from './languageDetection.mjs'; 
 
 export async function translateArticle(article, targetLanguage = 'en') {
@@ -22,8 +22,8 @@ export async function translateArticle(article, targetLanguage = 'en') {
         // Translate article content and title
         const translatedArticle = {
             ...article,
-            title: await translate(article.title, targetLanguage),
-            content: await translate(article.content, targetLanguage),
+            title: await TranslationProvider.translate(article.title, targetLanguage),
+            content: await TranslationProvider.translate(article.content, targetLanguage),
             language: targetLanguage
         };
         return translatedArticle;

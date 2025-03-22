@@ -1,0 +1,30 @@
+{
+    "general": {
+        "unknownError": "An unexpected error occurred. Please try again.",
+        "serverError": "Server error. Please try again later.",
+        "connectionError": "Unable to connect to the server. Please check your internet connection."
+    },
+    "auth": {
+        "invalidCredentials": "Invalid username or password.",
+        "sessionExpired": "Your session has expired. Please log in again.",
+        "unauthorized": "You are not authorized to perform this action.",
+        "accountLocked": "Your account has been locked. Please contact support."
+    },
+    "form": {
+        "required": "This field is required.",
+        "invalidEmail": "Please enter a valid email address.",
+        "invalidPassword": "Password must be at least 8 characters long.",
+        "passwordMismatch": "Passwords do not match."
+    },
+    "api": {
+        "requestFailed": "Request failed. Please try again.",
+        "invalidResponse": "Invalid response from server.",
+        "timeout": "Request timed out. Please try again."
+    },
+    "validation": {
+        "invalidInput": "Invalid input provided.",
+        "maxLength": "Input exceeds maximum length.",
+        "minLength": "Input is too short.",
+        "invalidFormat": "Invalid format."
+    }
+}

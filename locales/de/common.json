@@ -1,0 +1,25 @@
+{
+    "navigation": {
+        "home": "Startseite",
+        "about": "Über uns",
+        "contact": "Kontakt",
+        "news": "Nachrichten"
+    },
+    "common": {
+        "loading": "Laden...",
+        "error": "Fehler aufgetreten",
+        "success": "Erfolgreich",
+        "cancel": "Abbrechen",
+        "save": "Speichern",
+        "submit": "Absenden"
+    },
+    "footer": {
+        "privacy": "Datenschutz",
+        "terms": "Nutzungsbedingungen",
+        "copyright": "© 2023 The African Wave. Alle Rechte vorbehalten."
+    },
+    "errors": {
+        "required": "Dieses Feld ist erforderlich",
+        "invalid": "Ungültige Eingabe"
+    }
+}

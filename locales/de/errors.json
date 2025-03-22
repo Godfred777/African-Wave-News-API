@@ -1,0 +1,24 @@
+{
+    "common": {
+        "unexpected": "Ein unerwarteter Fehler ist aufgetreten",
+        "required": "Dieses Feld ist erforderlich",
+        "invalid": "Ungültige Eingabe"
+    },
+    "auth": {
+        "invalidCredentials": "Ungültige Anmeldeinformationen",
+        "emailNotFound": "E-Mail-Adresse nicht gefunden",
+        "wrongPassword": "Falsches Passwort",
+        "sessionExpired": "Ihre Sitzung ist abgelaufen"
+    },
+    "form": {
+        "emailFormat": "Ungültiges E-Mail-Format",
+        "minLength": "Mindestens {{count}} Zeichen erforderlich",
+        "maxLength": "Maximal {{count}} Zeichen erlaubt",
+        "passwordMismatch": "Passwörter stimmen nicht überein"
+    },
+    "api": {
+        "networkError": "Netzwerkfehler aufgetreten",
+        "serverError": "Serverfehler aufgetreten",
+        "timeout": "Zeitüberschreitung der Anfrage"
+    }
+}

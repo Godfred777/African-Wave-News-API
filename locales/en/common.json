@@ -1,0 +1,32 @@
+{
+    "header": {
+        "home": "Home",
+        "news": "News",
+        "about": "About",
+        "contact": "Contact"
+    },
+    "footer": {
+        "copyright": "© 2024 The African Wave. All rights reserved.",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy"
+    },
+    "common": {
+        "loading": "Loading...",
+        "error": "An error occurred",
+        "retry": "Try Again",
+        "search": "Search",
+        "readMore": "Read More"
+    },
+    "buttons": {
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "save": "Save",
+        "delete": "Delete"
+    },
+    "messages": {
+        "welcome": "Welcome to The African Wave",
+        "noResults": "No results found",
+        "successSubmit": "Successfully submitted",
+        "errorSubmit": "Error submitting data"
+    }
+}
