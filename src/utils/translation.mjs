@@ -24,17 +24,23 @@ export async function translateArticle(article, targetLanguage = 'en') {
             content: article.content
         });
 
-        const translatedJSON = await TranslationProvider.translate(combinedText, targetLanguage);
-
-        const {title, content} = JSON.parse(translatedJSON);
-        return {
-            ...article,
-            title,
-            content,
-            language: targetLanguage
-        }; 
+        try {
+            const translatedJSON = await TranslationProvider.translate(combinedText, targetLanguage);
     
+            const {title, content} = JSON.parse(translatedJSON);
+            return {
+                ...article,
+                title,
+                content,
+                language: targetLanguage
+            }; 
+        } catch (parseError) {
+            console.error('Failed to parse translation JSON:', parseError);
+            return article;
+        } 
+
     } catch (error) {
         throw error;
     }
+
 }

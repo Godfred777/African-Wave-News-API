@@ -12,7 +12,7 @@ const model = genAI.getGenerativeModel({
 });
 
 const generationConfig = {
-    temperature: 1,
+    temperature: 0.2,
     topP: 0.95,
     topK: 64,
     maxOutputTokens: 8192,
@@ -37,7 +37,10 @@ export async function translate(text, targetLanguage) {
             }
 
             const parts = [{
-                text: `Translate this text to ${targetLanguage}, return only the translated text without any formatting or markdown:\n${text}`
+                text: `Translate this JSON to ${targetLanguage}. 
+                Maintain the exact JSON structure and only translate the values.
+                Return valid JSON format:
+                ${text}`
             }];
 
             const result = await model.generateContent({
@@ -45,7 +48,18 @@ export async function translate(text, targetLanguage) {
                 generationConfig
             });
 
-            return result.response.text().replace(/```[\s\S]*?```/g, '').trim();
+            const response = result.response.text()
+            .replace(/```json\s*|\s*```/g, '')
+            .trim();
+
+            try {
+                JSON.parse(response);
+                return response;
+            } catch (jsonError) {
+                console.warn('Invalid JSON response:', response);
+                throw new Error('Invalid JSON in translation response');
+            }
+
         } catch (error) {
             if (error.status === 429) {
                 console.log(`Rate limit hit, attempt ${attempt}/${RATE_LIMIT.MAX_RETRIES}`);
