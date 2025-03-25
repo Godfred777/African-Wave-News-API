@@ -19,14 +19,21 @@ export async function translateArticle(article, targetLanguage = 'en') {
             return { ...article, language: targetLanguage };
         }
 
-        // Translate article content and title
-        const translatedArticle = {
+        const combinedText = JSON.stringify({
+            title: article.title,
+            content: article.content
+        });
+
+        const translatedJSON = await TranslationProvider.translate(combinedText, targetLanguage);
+
+        const {title, content} = JSON.parse(translatedJSON);
+        return {
             ...article,
-            title: await TranslationProvider.translate(article.title, targetLanguage),
-            content: await TranslationProvider.translate(article.content, targetLanguage),
+            title,
+            content,
             language: targetLanguage
-        };
-        return translatedArticle;
+        }; 
+    
     } catch (error) {
         throw error;
     }

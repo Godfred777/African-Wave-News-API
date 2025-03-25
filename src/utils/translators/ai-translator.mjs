@@ -31,8 +31,13 @@ export async function translate(text, targetLanguage) {
     
     for (let attempt = 1; attempt <= RATE_LIMIT.MAX_RETRIES; attempt++) {
         try {
+            if (!text || typeof text !== 'string') {
+                console.warn('Invalid text input for translation:', text);
+                return text;
+            }
+
             const parts = [{
-                text: `Translate the following text to ${targetLanguage}:\n${text}`
+                text: `Translate this text to ${targetLanguage}, return only the translated text without any formatting or markdown:\n${text}`
             }];
 
             const result = await model.generateContent({
@@ -40,7 +45,7 @@ export async function translate(text, targetLanguage) {
                 generationConfig
             });
 
-            return result.response.text();
+            return result.response.text().replace(/```[\s\S]*?```/g, '').trim();
         } catch (error) {
             if (error.status === 429) {
                 console.log(`Rate limit hit, attempt ${attempt}/${RATE_LIMIT.MAX_RETRIES}`);
