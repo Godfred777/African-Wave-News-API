@@ -1,4 +1,4 @@
-import { feedCache } from "./feedCache.mjs";
+import { feedCache } from "../config/feedCache.mjs";
 
 
 export async function emitFeed(socket) {

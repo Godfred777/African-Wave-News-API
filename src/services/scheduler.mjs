@@ -1,5 +1,5 @@
 import { parseRSSFeeds } from './parsers/rssParser.mjs';
-import { feedCache } from './feedCache.mjs';
+import { feedCache } from '../config/feedCache.mjs';
 import { queueTranslation } from '../utils/translationQueue.mjs';
 import cron from 'node-cron';
 
