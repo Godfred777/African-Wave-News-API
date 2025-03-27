@@ -10,3 +10,10 @@ To install the project, clone the repository and install the dependencies:
 git clone https://github.com/Godfred777/African-Wave-News-API.git
 cd African-Wave-News-API
 npm install
+
+## Usage
+To start the server, use the command:
+
+
+
+
