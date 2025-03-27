@@ -1,6 +1,3 @@
-Here is the updated content for the `README.md` file with all the necessary information in the right markdown format:
-
-```markdown
 # African Wave News API
 
 ## Description
