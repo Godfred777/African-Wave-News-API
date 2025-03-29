@@ -16,7 +16,7 @@ npm install
 To start the server, run:
 
 ```bash
-npm start
+npm run start
 ```
 
 The API will be available at `http://localhost:3000`.
