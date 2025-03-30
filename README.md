@@ -6,6 +6,11 @@ African Wave News API is a RESTful API that provides the latest news from variou
 ## Installation
 To install the project, clone the repository and install the dependencies:
 
+## Features
+- RESTful API for retrieving article feed in French, Spanish, German and English
+- Stores news headlines, content snippets, publication dates and links in Firestore
+- WebSockect for live communication in English, French, Spanish and German
+
 ```bash
 git clone https://github.com/Godfred777/African-Wave-News-API.git
 cd African-Wave-News-API
@@ -17,6 +22,10 @@ To start the server, run:
 
 ```bash
 npm run start
+```
+or in development mode:
+```bash
+npm run dev
 ```
 
 The API will be available at `http://localhost:3000`.
