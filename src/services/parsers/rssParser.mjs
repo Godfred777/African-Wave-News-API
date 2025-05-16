@@ -20,12 +20,20 @@ const parser = new Parser({
     headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Accept': 'application/rss+xml, application/xml, application/atom+xml, text/xml;q=0.9, */*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Language': 'en-US,fr-FR,de-DE,sw,es-ES;q=0.9',
         'Cache-Control': 'no-cache',
         'Pragma': 'no-cache'
     },
     customFields: {
-        item: ['content', 'contentSnippet', 'language']
+        item: [
+            'content', 
+            'contentSnippet', 
+            'language',
+            'title:title_fr',
+            'title:title_de', 
+            'title:title_sw',
+            'title:title_es'
+        ]
     },
     requestOptions: {
         agent: new https.Agent({
@@ -34,7 +42,6 @@ const parser = new Parser({
             timeout: 60000
         })
     }
-
 });
 
 async function fetchWithRetry(url, retries = 3) {

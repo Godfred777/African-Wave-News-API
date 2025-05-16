@@ -1,9 +1,8 @@
 import { db } from "../config/firebaseConfig.mjs";
-import { queueTranslation } from "../utils/translationQueue.mjs";
+import { feedCache } from "../config/feedCache.mjs";
+//import { queueTranslation } from "../utils/translationQueue.mjs";
 
-
-
-const DEFAULT_LIMIT = 10;
+//const DEFAULT_LIMIT = 10;
 
 export async function createArticle(article) {
     try {
@@ -23,9 +22,9 @@ export async function createArticle(article) {
     }
 }
 
-export async function getAllArticles(limit = DEFAULT_LIMIT) {
+export async function getAllArticles() {
     try {
-        const snapshot = await db.collection('articles').limit(limit).get();
+        const snapshot = await db.collection('articles').get();
         const articles = [];
         snapshot.forEach((doc) => {
             articles.push(doc.data());
@@ -37,9 +36,9 @@ export async function getAllArticles(limit = DEFAULT_LIMIT) {
     }
 }
 
-export async function tranlateArticleInFrench(limit = DEFAULT_LIMIT) {
+export async function tranlateArticleInFrench() {
     try {
-        const snapshot = await db.collection('articles').limit(limit).get();
+        const snapshot = await db.collection('articles').get();
         const articles = [];
         const promises = [];
         
@@ -47,7 +46,7 @@ export async function tranlateArticleInFrench(limit = DEFAULT_LIMIT) {
             if (doc.data().language === 'fr') {
                 articles.push(doc.data());
             } else {
-                promises.push(queueTranslation(doc.data(), 'fr'));
+                promises.push(feedCache.getTranslation('fr'));
             }
         });
         
@@ -59,9 +58,9 @@ export async function tranlateArticleInFrench(limit = DEFAULT_LIMIT) {
     }
 }
 
-export async function tranlateArticleInGerman(limit = DEFAULT_LIMIT) {
+export async function tranlateArticleInGerman() {
     try {
-        const snapshot = await db.collection('articles').limit(limit).get();
+        const snapshot = await db.collection('articles').get();
         const articles = [];
         const promises = [];
         
@@ -69,7 +68,7 @@ export async function tranlateArticleInGerman(limit = DEFAULT_LIMIT) {
             if (doc.data().language === 'de') {
                 articles.push(doc.data());
             } else {
-                promises.push(queueTranslation(doc.data(), 'de'));
+                promises.push(feedCache.getTranslation('de'));
             }
         });
         
@@ -81,9 +80,9 @@ export async function tranlateArticleInGerman(limit = DEFAULT_LIMIT) {
     }
 }
 
-export async function tranlateArticleInSpanish(limit = DEFAULT_LIMIT) {
+export async function tranlateArticleInSpanish() {
     try {
-        const snapshot = await db.collection('articles').limit(limit).get();
+        const snapshot = await db.collection('articles').get();
         const articles = [];
         const promises = [];
         
@@ -91,7 +90,7 @@ export async function tranlateArticleInSpanish(limit = DEFAULT_LIMIT) {
             if (doc.data().language === 'es') {
                 articles.push(doc.data());
             } else {
-                promises.push(queueTranslation(doc.data(), 'es'));
+                promises.push(feedCache.getTranslation('es'));
             }
         });
         
@@ -103,9 +102,9 @@ export async function tranlateArticleInSpanish(limit = DEFAULT_LIMIT) {
     }
 }
 
-export async function tranlateArticleInEnglish(limit = DEFAULT_LIMIT) {
+export async function tranlateArticleInEnglish() {
     try {
-        const snapshot = await db.collection('articles').limit(limit).get();
+        const snapshot = await db.collection('articles').get();
         const articles = [];
         const promises = [];
         
@@ -113,7 +112,7 @@ export async function tranlateArticleInEnglish(limit = DEFAULT_LIMIT) {
             if (doc.data().language === 'en') {
                 articles.push(doc.data());
             } else {
-                promises.push(queueTranslation(doc.data(), 'en'));
+                promises.push(feedCache.getTranslation('en'));
             }
         });
         

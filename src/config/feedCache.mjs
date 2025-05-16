@@ -26,7 +26,7 @@ class FeedCache {
     }
 
     getArticles() {
-        return this.articles;
+        return this.articles || [];
     }
 
     getLastUpdated() {
